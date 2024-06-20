@@ -42,7 +42,13 @@ pipeline {
             echo 'Pipeline failed!'
         }
         always {
-            cleanWs()
+            script {
+                try {
+                    cleanWs()
+                } catch (Exception e) {
+                    echo 'Failed to clean workspace: ' + e.message
+                }
+            }
         }
     }
 }
