@@ -5,8 +5,8 @@ FROM jenkins/inbound-agent:latest-jdk11
 USER root
 RUN apt-get update && apt-get install -y curl gnupg2
 
-# Install Node.js and npm
-RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
+# Install Node.js 18 (current LTS version)
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
 RUN apt-get install -y nodejs
 
 # Install pnpm
