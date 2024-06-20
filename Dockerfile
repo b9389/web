@@ -27,6 +27,9 @@ COPY . .
 # Install dependencies
 RUN pnpm install
 
+# Install missing type definitions
+RUN pnpm install @types/node @types/w3c-web-serial @types/web-bluetooth @types/vite/client
+
 # Build the application
 RUN pnpm build
 
