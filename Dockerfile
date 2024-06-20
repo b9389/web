@@ -12,6 +12,9 @@ RUN apt-get install -y nodejs
 # Install pnpm
 RUN npm install -g pnpm
 
+# Install TypeScript globally
+RUN npm install -g typescript
+
 # Switch back to the Jenkins user
 USER jenkins
 
@@ -21,8 +24,10 @@ WORKDIR /home/jenkins/agent
 # Copy the Meshtastic web application code
 COPY . .
 
-# Install dependencies and build the application
+# Install dependencies
 RUN pnpm install
+
+# Build the application
 RUN pnpm build
 
 # Expose the application port
