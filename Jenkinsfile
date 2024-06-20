@@ -44,7 +44,7 @@ pipeline {
         always {
             script {
                 try {
-                    cleanWs()
+                    deleteDir()  // Clean the workspace after the build
                 } catch (Exception e) {
                     echo 'Failed to clean workspace: ' + e.message
                 }
