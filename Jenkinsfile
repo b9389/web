@@ -1,11 +1,25 @@
 pipeline {
     agent {
-        dockerfile true
+        dockerfile {
+            filename 'Dockerfile'
+        }
+    }
+    environment {
+        NODE_ENV = 'production'
     }
     stages {
-        stage('Build') {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+        stage('Install Dependencies') {
             steps {
                 sh 'pnpm install'
+            }
+        }
+        stage('Build') {
+            steps {
                 sh 'pnpm build'
             }
         }
@@ -16,8 +30,19 @@ pipeline {
         }
         stage('Run') {
             steps {
-                sh 'pnpm start'
+                sh 'pnpm start &'
             }
+        }
+    }
+    post {
+        success {
+            echo 'Pipeline completed successfully!'
+        }
+        failure {
+            echo 'Pipeline failed!'
+        }
+        always {
+            cleanWs()
         }
     }
 }
