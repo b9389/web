@@ -9,11 +9,8 @@ RUN apt-get update && apt-get install -y curl gnupg2
 RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
 RUN apt-get install -y nodejs
 
-# Install pnpm
-RUN npm install -g pnpm
-
-# Install TypeScript globally
-RUN npm install -g typescript
+# Install pnpm and TypeScript globally
+RUN npm install -g pnpm typescript
 
 # Switch back to the Jenkins user
 USER jenkins
@@ -28,7 +25,7 @@ COPY . .
 RUN pnpm install
 
 # Install missing type definitions
-RUN pnpm install @types/node @types/w3c-web-serial @types/web-bluetooth @types/vite/client
+RUN pnpm add @types/node @types/w3c-web-serial @types/web-bluetooth @types/vite/client --save-dev
 
 # Build the application
 RUN pnpm build
